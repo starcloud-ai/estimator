@@ -293,7 +293,7 @@ def _validate_properties(run_config):
                     ' one argument "op".')
 
   _validate('protocol',
-            lambda protocol: protocol in (None, "grpc", "grpc+verbs, grpc+gdr"),
+            lambda protocol: protocol in (None, "grpc", "grpc+verbs", "grpc+gdr"),
             message='protocol should be grpc or grpc+verbs')
 
 
