@@ -100,6 +100,7 @@ function usage() {
   echo "  Options:"
   echo "    --project_name <name> set project name to name"
   echo "    --nightly             build tensorflow_estimator nightly"
+  echo "    --gpudirect           build tensorflow_estimator gpudirect"
   echo ""
   exit 1
 }
@@ -110,6 +111,7 @@ function main() {
   SRCDIR=""
   DSTDIR=""
   CLEANSRC=1
+  PKG_NAME_FLAG=0
 
   while true; do
     if [[ -z "$1" ]]; then
@@ -119,6 +121,8 @@ function main() {
       exit 1
     elif [[ "$1" == "--nightly" ]]; then
       NIGHTLY_BUILD=1
+    elif [[ "$1" == "--gpudirect" ]]; then
+      PKG_NAME_FLAG=1
     elif [[ "$1" == "--project_name" ]]; then
       shift
       if [[ -z "$1" ]]; then
@@ -146,6 +150,9 @@ function main() {
 
   if [[ -z ${PROJECT_NAME} ]]; then
     PROJECT_NAME="tensorflow_estimator"
+    if [[ ${PKG_NAME_FLAG} == "1" ]]; then
+      PROJECT_NAME="tensorflow_estimator_gpudirect"
+    fi
     if [[ ${NIGHTLY_BUILD} == "1" ]]; then
       PROJECT_NAME="tf_estimator_nightly"
     fi
